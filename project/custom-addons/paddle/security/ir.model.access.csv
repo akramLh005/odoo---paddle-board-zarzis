@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_paddle_board,access.paddle.board,model_paddle_board,,1,1,1,1
+access_paddle_date,access.paddle.date,model_paddle_date,,1,1,1,1
+access_paddle_session,access.paddle.session,model_paddle_session,,1,1,1,1
+access_session_lines,access.session.lines,model_session_lines,,1,1,1,1
+
+
+

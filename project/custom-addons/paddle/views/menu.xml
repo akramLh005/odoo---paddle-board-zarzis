@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--        Dashboard  -->
+        <record id="action_program_activities_dashboard" model="ir.actions.client">
+            <field name="name">ProgramActivitiesBoard</field>
+            <field name="tag">wamyProgramActivities</field>
+        </record>
+
+        <menuitem id="main_programs_activities" name="Paddle Board"
+                  sequence="1"
+                  groups="base.group_user"
+                  action="paddle.action_program_activities_dashboard"/>
+        <menuitem id="paddle_request_menu" name="Request" parent="main_programs_activities" action="paddle.action_paddle_request" sequence="5"/>
+        <menuitem id="paddle_date_menu" name="Working Date" parent="main_programs_activities" action="paddle.action_paddle_date" sequence="10"/>
+        <menuitem id="paddle_session_menu" name="Working Session" parent="main_programs_activities" action="paddle.action_paddle_session" sequence="15"/>
+    </data>
+</odoo>

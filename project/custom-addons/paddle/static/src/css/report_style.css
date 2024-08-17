@@ -1,0 +1,92 @@
+@font-face {
+  font-family: 'Almarai-Font' !important;
+  font-style: normal !important;
+  src: url(/atit_custom_invoice_1/static/fonts/Almarai/Almarai-Regular.ttf) format('truetype') !important;
+}
+.page{
+  /*  margin-top:-50px !important; */
+font-family: 'Almarai-Font' !important;   /* Arabic Font Almarai --install module  [nati_arabic_font]*/
+}
+body .header {
+font-family: 'Almarai-Font' !important;   /* Arabic Font Almarai --install module  [nati_arabic_font]*/
+}
+
+tr.no_border td {
+  border: 0;
+  font-family: 'Almarai-Font' !important;
+}
+
+.invoice_main_body tr td{
+  border: 0;
+  font-family: 'Almarai-Font' !important;
+}
+
+
+.invoice_main_header tr{
+background-color: #eaeaea;
+font-family: 'Almarai-Font' !important;
+}
+.bg-header{
+background-color: #eaeaea;
+font-family: 'Almarai-Font' !important;
+}
+.bg-light {
+    background-color: #f6f6f6;
+    font-family: 'Almarai-Font' !important;
+}
+
+.flex-between {
+    display: -webkit-box; /* wkhtmltopdf uses this one */
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: justify; /* wkhtmltopdf uses this one */
+    -webkit-justify-content: space-between;
+            justify-content: space-between;
+}
+.flex-end {
+    display: -webkit-box; /* wkhtmltopdf uses this one */
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: end; /* wkhtmltopdf uses this one */
+    -webkit-justify-content: end;
+            justify-content: end;
+}
+.flex-between .lbl-left{
+  /*  width:200px;*/
+}
+.flex-between .lbl-right{
+    text-align: right;
+    /*  width:200px;*/
+}
+.flex-between .lbl-center{
+    text-align: right;
+      /*  width:200px;*/
+}
+.flex-betweenxx :last-child{
+    text-align: right;
+}
+
+.mw-100{
+font-weight: bold;
+font-size:13px;
+font-family: 'Almarai-Font' !important;
+}
+
+.row my-1{
+font-family: 'Almarai-Font' !important;
+}
+
+.px-2{
+font-family: 'Almarai-Font' !important;
+}
+
+.oe_structure{
+font-family: 'Almarai-Font' !important;
+}
+.row p-1 mt-1 bg-light{
+font-family: 'Almarai-Font' !important;
+}
+
+.col-12{
+font-family: 'Almarai-Font' !important;
+}

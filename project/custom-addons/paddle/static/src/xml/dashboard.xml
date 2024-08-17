@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="ProgramActivitiesBoard">
+        <div class="o_action o_wamy_dashboard">
+            <div class="o_content container-fluid o_renting_dashboard pt-3"/>
+        </div>
+    </t>
+
+    <t t-name="wamyProgramActivities">
+        <div class="row stats-cards">
+
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="card">
+                    <div class="card-header text-center" style="background: #648aa3">
+                        <i class="fa fa-file" title="Inbox"/>
+                    </div>
+                    <div class="card-body p-0 text-center">
+                        <div class="card m-0">
+                            <div class="card-header" style="padding: 19px !important;background: #95b6cc">
+                                <div class="row" style="cursor: pointer;">
+                                    <div class="col-6">All Days</div>
+                                    <div class="col-6"><t t-esc="widget.all_days"/></div>
+                                </div>
+                            </div>
+                            <div class="card-header" style="padding: 19px !important;background: #95b6cc">
+                                 <div class="row" style="cursor: pointer;">
+                                    <div class="col-6">Active Days</div>
+                                     <div class="col-6"><t t-esc="widget.True_programs"/></div>
+                                </div>
+                            </div>
+                            <div class="card-header" style="padding: 19px !important;background: #95b6cc">
+                                 <div class="row" style="cursor: pointer;">
+                                    <div class="col-6">Inactive Days</div>
+                                     <div class="col-6"><t t-esc="widget.False_programs"/></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6 col-md-6 justify-content-between row" style="margin-left: 1px;">
+                <div class="card click_approved_programs col-5 h-25 p-0 mb-4">
+                    <div class="card-header text-center" style="background:#E5CB9F">
+                        <i class="fa fa-home"/>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="stat-head mb-4">All</div>
+                        <div class="stat_count">
+                            <t t-esc="widget.all_programs"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="card click_approved_programs col-5 h-25 p-0 mb-4">
+                    <div class="card-header text-center" style="background-color: rgb(100, 138, 163)">
+                        <i class="fa fa-star"/>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="stat-head mb-4">In Progress</div>
+                        <div class="stat_count">
+                            <t t-esc="widget.in_progress"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="card click_approved_programs col-5 h-25 p-0 mb-4">
+                    <div class="card-header text-center" style="background:#68A7AD">
+                        <i class="fa fa-check"/>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="stat-head mb-4">Approved</div>
+                        <div class="stat_count">
+                            <t t-esc="widget.total_approved_programs"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="card click_approved_programs col-5 h-25 p-0 mb-4">
+                    <div class="card-header text-center" style="background:#cd1313b3">
+                        <i class="fa fa-times"/>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="stat-head mb-4">Canceled</div>
+                        <div class="stat_count">
+                            <t t-esc="widget.total_canceled_programs"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="RentingChart">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="card">
+                    <canvas class="top_renting_order" width="200" height="120"/>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <div class="card">
+                    <canvas class="top_renting_contract" width="200" height="120"/>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

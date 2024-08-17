@@ -1,0 +1,5 @@
+# Ignore all files and directories in db_data
+db_data/
+
+# Ignore all files and directories in filestore
+filestore/

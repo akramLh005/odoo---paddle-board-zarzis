@@ -1,0 +1,37 @@
+version: '3.4'
+services:
+  web:
+    image: paddle-odoo:latest
+    depends_on:
+      - db
+    ports:
+      - "8099:8069"
+    entrypoint:
+      - odoo
+      - -i
+      - base
+      - -d
+      - odoo_database
+    volumes:
+      - ./odoo-data/filestore:/var/lib/odoo
+      - ./odoo-data/config:/etc/odoo
+      - ./project/custom-addons:/mnt/extra-addons/custom-modules
+    networks:
+      - webnet
+
+  db:
+    image: postgres:14
+    ports:
+      - "6432:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - ./odoo-data/db_data:/var/lib/postgresql/data/pgdata
+    networks:
+      - webnet
+networks:
+  webnet:
+  

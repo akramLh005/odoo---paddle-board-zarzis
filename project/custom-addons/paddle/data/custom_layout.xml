@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data inherit_id="web.layout">
+        <xpath expr="//body" position="inside">
+            <style>
+                .o_main_navbar {background-color: #5a7b87 !important;border-bottom: 0px;}
+                .o_main_navbar .show .dropdown-toggle {background-color: #5a7b87;}
+                .o_main_navbar > ul > li > a:hover, .o_main_navbar
+                       > ul > li > label:hover {background-color: #4a666f;}
+                .o_main_navbar > a:hover, .o_main_navbar > a:focus, .o_main_navbar
+                       > button:hover, .o_main_navbar
+                       > button:focus {background-color: #4a666f;color: inherit;}
+                .o_main_navbar > a:hover, .o_main_navbar > a:focus, .o_main_navbar
+                       > button:hover, .o_main_navbar
+                       > button:focus {background-color: #4a666f;color: inherit;}
+            </style>
+        </xpath>
+
+    </data>
+</odoo>

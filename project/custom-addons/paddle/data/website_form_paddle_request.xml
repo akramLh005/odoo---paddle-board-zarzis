@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="paddle.model_paddle_board" model="ir.model">
+            <field name="website_form_key">create_request</field>
+            <field name="website_form_default_field_id" ref="paddle.field_paddle_board__name" />
+            <field name="website_form_access">True</field>
+            <field name="website_form_label">Create a Request</field>
+        </record>
+
+        <function model="ir.model.fields" name="formbuilder_whitelist">
+            <value>paddle.board</value>
+            <value eval="[
+                'name',
+                'phone',
+                'nbr_person',
+                'date_id',
+                'session_id',
+            ]"/>
+        </function>
+    </data>
+</odoo>

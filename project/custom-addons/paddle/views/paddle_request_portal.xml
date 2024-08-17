@@ -1,0 +1,593 @@
+<odoo>
+
+    <template id="portal_my_home" name="Show Request" inherit_id="portal.portal_my_home" customize_show="True"
+              priority="20">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Paddle Request</t>
+                <t t-set="url" t-value="'/my/details'"/>
+                <t t-set="placeholder_count" t-value="'task_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="my_paddle_link" name="Link to frontend portal" inherit_id="portal.user_dropdown">
+        <xpath expr="//a[@href='/my/home']" position="replace">
+            <a href="/my/details" role="menuitem" class="dropdown-item ps-3">
+                <i class="fa fa-fw fa-id-card-o me-1 small text-muted"/>
+                My Request
+            </a>
+        </xpath>
+    </template>
+
+    <template id="portal_my_paddle2" name="My Requests">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="False"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">My Requests</t>
+            </t>
+            <t t-if="not invoices">
+                <p>There are currently no requests for your account.</p>
+            </t>
+            <t t-if="invoices" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active text-center">
+                        <th>Name</th>
+                        <th>Number of person</th>
+                        <th>Date</th>
+                        <th>Session</th>
+                        <th class="text-center">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="invoices" t-as="invoice">
+                        <tr class="text-center">
+                            <td>
+                                <span t-field="invoice.name"/>
+                            </td>
+                            <td>
+                                <span t-field="invoice.nbr_person"/>
+                            </td>
+                            <td>
+                                <span t-field="invoice.date_id"/>
+                            </td>
+                            <td>
+                                <span t-field="invoice.session_id2"/>
+                            </td>
+                            <td class="tx_status text-center">
+                                <t t-if="invoice.state == 'in_progress'">
+                                    <span class="badge rounded-pill text-bg-info">
+                                        <i class="fa fa-fw fa-clock-o" aria-label="Progress" title="Progress"
+                                           role="img"></i>
+                                        <span class="d-none d-md-inline">In Progress</span>
+                                    </span>
+                                </t>
+                                <t t-if="invoice.state == 'canceled'">
+                                    <span class="badge rounded-pill text-bg-danger">
+                                        <i class="fa fa-fw fa-repeat" aria-label="Cancelled" title="Cancelled"
+                                           role="img"></i>
+                                        <span class="d-none d-md-inline">Cancelled</span>
+                                    </span>
+                                </t>
+                                <t t-if="invoice.state == 'approved'">
+                                    <span class="badge rounded-pill text-bg-success">
+                                        <i class="fa fa-fw fa-check" aria-label="Approved" title="Approved"
+                                           role="img"></i>
+                                        <span class="d-none d-md-inline">Approved</span>
+                                    </span>
+                                </t>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+        </t>
+    </template>
+
+    <template id="apply-paddle" name="apply-paddle" customize_show="True">
+        <t t-call="website.layout">
+
+            <div id="wrap" class="container">
+                <div class="oe_structure mt-2"/>
+                <section class="s_process_steps pt24 pb24 s_process_steps_connector_line" data-vcss="001">
+                    <svg class="s_process_step_svg_defs position-absolute">
+                        <defs>
+                            <marker class="s_process_steps_arrow_head" markerWidth="15" markerHeight="10" refX="6"
+                                    refY="6" orient="auto">
+                                <path d="M 2,2 L10,6 L2,10 L6,6 L2,2" vector-effect="non-scaling-size"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                    <div class="container">
+                        <div class="row g-0">
+                            <div class="col-3 col-lg-4 pb24 pt24 s_process_step">
+                                <svg class="s_process_step_connector" viewBox="0 0 100 20" preserveAspectRatio="none">
+                                    <path d="M 0 10 L 100 10" vector-effect="non-scaling-stroke"/>
+                                </svg>
+                                <div class="s_process_step_icon">
+                                    <i class="fa fa-calendar fa-2x mx-auto rounded-circle bg-primary"/>
+                                </div>
+                                <div class="s_process_step_content">
+                                    <h2>Choose Date</h2>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-4 s_process_step pt24 pb24">
+                                <svg class="s_process_step_connector" viewBox="0 0 100 20" preserveAspectRatio="none">
+                                    <path d="M 0 10 L 100 10" vector-effect="non-scaling-stroke"/>
+                                </svg>
+                                <div class="s_process_step_icon">
+                                    <i class="fa fa-location-arrow fa-2x mx-auto rounded-circle bg-secondary"/>
+                                </div>
+                                <div class="s_process_step_content">
+                                    <h2>Choose Session</h2>
+                                </div>
+                            </div>
+                            <div class="col-3 col-lg-4 pb24 pt24 s_process_step">
+                                <svg class="s_process_step_connector" viewBox="0 0 100 20" preserveAspectRatio="none">
+                                    <path d="M 0 10 L 100 10" vector-effect="non-scaling-stroke"/>
+                                </svg>
+                                <div class="s_process_step_icon">
+                                    <i class="fa fa-check-circle fa-2x mx-auto rounded-circle bg-secondary"/>
+                                </div>
+                                <div class="s_process_step_content">
+                                    <h2>Let's Go</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <br/>
+                <span class="hidden" data-for="hr_recruitment_form"
+                      t-att-data-values="{'date_id': date_id, 'session_id': session_id}"/>
+                <div id="jobs_section" class="container">
+                    <div class="row justify-content-center">
+                        <section id="forms" class="col-12 col-md-9 s_website_form" data-vcss="001"
+                                 data-snippet="s_website_form">
+                            <div class="container">
+                                <form id="hr_recruitment_form" action="/website/form/" method="post"
+                                      enctype="multipart/form-data" class="o_mark_required row"
+                                      data-mark="*" data-force_action="paddle.board.order"
+                                      data-model_name="paddle.board"
+                                      data-success-mode="redirect" data-success-page="/my/details"
+                                      hide-change-model="true">
+                                    <div class="s_website_form_rows row s_col_no_bgcolor">
+                                        <div class="d-none col-12 mb-0 py-2 s_website_form_field s_website_form_required s_website_form_model_required"
+                                             data-type="char" data-name="Field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-4 col-sm-auto s_website_form_label"
+                                                       style="width: 200px" for="name">
+                                                    <span class="s_website_form_label_content">Your Name</span>
+                                                    <span class="s_website_form_mark">*</span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="name" type="text"
+                                                           class="form-control s_website_form_input"
+                                                           name="name" required=""
+                                                           data-fill-with="name"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-none col-12 mb-0 py-2 s_website_form_field s_website_form_required"
+                                             data-type="email" data-name="Field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-4 col-sm-auto s_website_form_label"
+                                                       style="width: 200px" for="nbr_person">
+                                                    <span class="s_website_form_label_content">Number of person</span>
+                                                    <span class="s_website_form_mark">*</span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="nbr_person" type="number" min="00"
+                                                           class="form-control s_website_form_input"
+                                                           name="nbr_person" required=""/>
+                                                    <span id="max_number" style="font-size: smaller;color: #bb1e1e;"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-none col-12 mb-0 py-2 s_website_form_field s_website_form_required"
+                                             data-type="char" data-name="Field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-4 col-sm-auto s_website_form_label"
+                                                       style="width: 200px" for="phone">
+                                                    <span class="s_website_form_label_content">Your Phone Number</span>
+                                                    <span class="s_website_form_mark">*</span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <input id="phone" type="tel"
+                                                           class="form-control s_website_form_input"
+                                                           name="phone" required=""
+                                                           data-fill-with="phone"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-none col-12 mb-0 py-2 s_website_form_field date_id_class">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-4 col-sm-auto s_website_form_label"
+                                                       style="width: 200px" for="date_id">
+                                                    <span class="s_website_form_label_content">Date</span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <select id="date_id" name="date_id"
+                                                            class="form-control s_website_form_input">
+                                                        <option value="">Choose Date...</option>
+                                                        <t t-foreach="available_dates" t-as="country">
+                                                            <option t-att-value="country.id">
+                                                                <t t-esc="country.date"/>
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-none col-12 mb-0 py-2 s_website_form_field">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-4 col-sm-auto s_website_form_label"
+                                                       style="width: 200px" for="session_id2">
+                                                    <span class="s_website_form_label_content">Session</span>
+                                                </label>
+                                                <div class="col-sm">
+                                                    <select id="session_id2" name="session_id2"
+                                                            class="form-control s_website_form_input">
+                                                        <option value="">Choose Session...</option>
+                                                        <t t-foreach="sessions" t-as="session">
+                                                            <option t-att-value="session.id">
+                                                                <t t-esc="session.complete_name"/>
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="calendar">
+                                            <div t-foreach="available_months" t-as="month"
+                                                 t-attf-id="month-#{month['id']}"
+                                                 t-attf-class="o_appointment_month #{'d-none' if not int(month['id']) == 0 else ''}">
+                                                <div id="calendarHeader"
+                                                     class="d-inline-flex align-items-baseline container-fluid">
+                                                    <h4 t-out="month['month']"
+                                                        class="o_appointment_month_name col text-center"/>
+                                                    <t t-if="int(month['id']) &lt; len(available_months) - 1">
+                                                        <button type="button" id="nextCal"
+                                                                t-attf-class="btn btn-primary o_js_calendar_navigate ms-1 d-none">
+                                                            <i class="fa fa-arrow-right"/>
+                                                        </button>
+                                                    </t>
+
+                                                </div>
+                                                <table class="table mt-2 month_table">
+                                                    <tr class="active">
+                                                        <t t-foreach="formated_days" t-as="day">
+                                                            <th class="text-center p-md-2 p-1 align-middle"
+                                                                t-out="day"/>
+                                                        </t>
+                                                    </tr>
+                                                    <tr t-foreach="month['weeks']" t-as="weeks"
+                                                        class="o_appointment_days">
+                                                        <t t-foreach="weeks" t-as="day">
+                                                            <td t-attf-class="align-middle p-md-2 p-1 text-center#{day and ' o_day' or ''} #{day.get('weekend_cls', '')} #{day.get('today_cls', '')}"
+                                                                t-attf-title="#{day.get('today_cls', '') and 'Today' or ''}">
+                                                                <t t-if="day['slots']">
+                                                                    <div t-att-id="day['day'].strftime('%Y-%m-%d')"
+                                                                         name="date_id"
+                                                                         class="o_day_wrapper o_slot_button mx-auto px-1 px-md-2 py-2 w-75 w-md-50"
+                                                                         t-out="day['day'].day"
+                                                                         t-att-data-available-slots="json.dumps(day['slots'])">
+                                                                    </div>
+
+                                                                </t>
+                                                                <t t-if="not day['slots']">
+                                                                    <div t-out="day['day'].day"
+                                                                         t-attf-class="o_day_wrapper mx-auto px-1 px-md-2 py-2 w-75 w-md-50 text-muted o_mute_day"/>
+                                                                </t>
+                                                            </td>
+                                                        </t>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-none col-12 mb-0 py-2 s_website_form_field session_section">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-4 col-sm-auto s_website_form_label"
+                                                       style="width: 200px" for="session_id2">
+                                                    <span class="s_website_form_label_content"/>
+                                                </label>
+                                                <!-- Active Sessions -->
+                                                <div class="tab-pane">
+                                                    <div class="text-center o_appointment_selected_slot_date pt-1"
+                                                         t-out="slotDate"/>
+                                                    <div class="o_slots_list row px-0">
+                                                        <t t-foreach="sessions" t-as="session">
+                                                            <div id="session_id2" name="session_id2"
+                                                                 class="d-flex btn btn-outline-primary align-items-center justify-content-center col-md-6 col-12 mt-2 session_id2"
+                                                                 t-out="session.complete_name">
+                                                            </div>
+                                                        </t>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="d-none col-12 s_website_form_submit mb64" data-name="Submit Button">
+                                            <div style="width: 200px" class="s_website_form_label"/>
+                                            <a href="#" role="button" id="submit_form"
+                                               class="btn btn-primary btn-lg s_website_form_send">I'm feeling lucky
+                                            </a>
+                                            <span id="s_website_form_result"/>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="oe_structure mt-2"/>
+            </div>
+        </t>
+    </template>
+
+
+    <!--                                        <div class="col-12 mb-0 py-2 s_website_form_field date_id_class">-->
+    <!--                                            <div class="row s_col_no_resize s_col_no_bgcolor">-->
+    <!--                                                <label class="col-4 col-sm-auto s_website_form_label"-->
+    <!--                                                       style="width: 200px" for="date_id">-->
+    <!--                                                    <span class="s_website_form_label_content">Date</span>-->
+    <!--                                                </label>-->
+    <!--                                                <div class="col-sm">-->
+    <!--                                                    <select id="date_id" name="date_id"-->
+    <!--                                                            class="form-control s_website_form_input"-->
+    <!--                                                            required="required" value="">-->
+    <!--                                                        <option value="">Choose Date...</option>-->
+    <!--                                                        <t t-foreach="available_dates" t-as="country">-->
+    <!--                                                            <option t-att-value="country.id">-->
+    <!--                                                                <t t-esc="country.date"/>-->
+    <!--                                                            </option>-->
+    <!--                                                        </t>-->
+    <!--                                                    </select>-->
+    <!--                                                </div>-->
+    <!--                                            </div>-->
+    <!--                                        </div>-->
+    <!--                                        <div class="col-12 mb-0 py-2 s_website_form_field">-->
+    <!--                                            <div class="row s_col_no_resize s_col_no_bgcolor">-->
+    <!--                                                <label class="col-4 col-sm-auto s_website_form_label" style="width: 200px" for="session_id2">-->
+    <!--                                                    <span class="s_website_form_label_content">Session</span>-->
+    <!--                                                </label>-->
+    <!--                                                <div class="col-sm">-->
+    <!--                                                    <select id="session_id2" name="session_id2" class="form-control s_website_form_input" required="required">-->
+    <!--                                                        <option value="">Choose Session...</option>-->
+    <!--                                                        <t t-foreach="sessions" t-as="session">-->
+    <!--                                                            <option t-att-value="session.id">-->
+    <!--                                                                <t t-esc="session.complete_name"/>-->
+    <!--                                                            </option>-->
+    <!--                                                        </t>-->
+    <!--                                                    </select>-->
+    <!--                                                </div>-->
+    <!--                                            </div>-->
+    <!--                                        </div>-->
+
+
+
+<!--    <t name="Home" t-name="website.homepage">-->
+<!--            <t t-call="website.layout">-->
+<!--                <t t-set="pageName" t-value="'homepage'"/>-->
+<!--                <div id="wrap" class="oe_structure oe_empty">-->
+<!--                    <section class="s_carousel_wrapper" data-vxml="001" data-snippet="s_carousel" data-name="Carousel">-->
+<!--                        <div class="s_carousel s_carousel_default carousel slide" data-bs-interval="10000"-->
+<!--                             id="myCarousel1716661734439" style="background-image: none;">-->
+
+<!--                            <ol class="carousel-indicators o_we_no_overlay">-->
+<!--                                <li data-bs-slide-to="0" data-bs-target="#myCarousel1716661734439" class="active"/>-->
+<!--                                <li data-bs-slide-to="1" data-bs-target="#myCarousel1716661734439"/>-->
+<!--                                <li data-bs-slide-to="2" data-bs-target="#myCarousel1716661734439" aria-current="true"/>-->
+<!--                            </ol>-->
+
+
+<!--                            <div class="carousel-inner">-->
+
+<!--                                <div class="carousel-item o_colored_level oe_img_bg o_bg_img_center pb256 pt256 active"-->
+<!--                                     style="background-image: url(&quot;/web/image/website.s_carousel_default_image_1&quot;);"-->
+<!--                                     data-name="Slide">-->
+<!--                                    <div class="container oe_unremovable">-->
+
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div class="carousel-item o_colored_level oe_img_bg o_bg_img_center pb256 pt256"-->
+<!--                                     style="background-image: url(&quot;/web/image/website.s_carousel_default_image_2&quot;);"-->
+<!--                                     data-name="Slide">-->
+<!--                                    <div class="container oe_unremovable">-->
+
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div class="carousel-item pt128 pb128 o_colored_level oe_img_bg o_bg_img_center"-->
+<!--                                     style="background-image: url(&quot;/web/image/website.s_carousel_default_image_3&quot;);"-->
+<!--                                     data-name="Slide">-->
+<!--                                    <div class="container oe_unremovable">-->
+
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                            <a class="carousel-control-prev o_not_editable o_we_no_overlay" data-bs-slide="prev"-->
+<!--                               role="img" aria-label="Previous" title="Previous" href="#myCarousel1716661734439">-->
+<!--                                <span class="carousel-control-prev-icon"/>-->
+<!--                                <span class="visually-hidden o_default_snippet_text">Previous</span>-->
+<!--                            </a>-->
+<!--                            <a class="carousel-control-next o_not_editable o_we_no_overlay" data-bs-slide="next"-->
+<!--                               role="img" aria-label="Next" title="Next" href="#myCarousel1716661734439">-->
+<!--                                <span class="carousel-control-next-icon"/>-->
+<!--                                <span class="visually-hidden o_default_snippet_text">Next</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </section>-->
+<!--                    <section class="s_text_image pt32 pb32 o_colored_level" data-snippet="s_image_text"-->
+<!--                             data-name="Image - Text" style="background-image: none;">-->
+<!--                        <div class="container">-->
+<!--                            <div class="row align-items-center">-->
+
+<!--                                <div class="o_colored_level pt0 pb0 col-lg-6">-->
+<!--                                    <img src="/web/image/901-09417d3a/s_image_text_default_image.jpg"-->
+<!--                                         class="img img-fluid mx-auto" alt="" loading="lazy" data-original-id="807"-->
+<!--                                         data-original-src="/website/static/src/img/snippets_demo/s_image_text.jpg"-->
+<!--                                         data-mimetype="image/jpeg" data-bs-original-title="" title=""-->
+<!--                                         aria-describedby="tooltip359892" data-quality="69"/>-->
+<!--                                </div>-->
+<!--                                <div class="col-lg-6 pt16 pb16 o_colored_level">-->
+<!--                                    <h2 class="o_default_snippet_text">Stand-up-paddle-->
+<!--                                        <br/>-->
+<!--                                    </h2>-->
+<!--                                    <p class="o_default_snippet_text">- how to book : simply give us a call at +216 99-->
+<!--                                        273 375&amp;nbsp;-->
+<!--                                    </p>-->
+<!--                                    <p>- depending on wind, we paddle at&amp;nbsp;<a-->
+<!--                                            href="https://maps.app.goo.gl/WoEbqn4kSkyKRpm17" target="_blank">spot1</a>&amp;nbsp;or&amp;nbsp;-->
+<!--                                        <a href="https://maps.app.goo.gl/kAteUEVnFgwR2vvF9" target="_blank">spot2</a>-->
+<!--                                    </p>-->
+<!--                                    <p>- changing room is available at our club&amp;nbsp;<a-->
+<!--                                            href="https://maps.app.goo.gl/BigmnmKBnp3eqPHu9" target="_blank">here</a>.&amp;nbsp;-->
+<!--                                    </p>-->
+<!--                                    <p>- price per excursion : Sunsrise ( 04:30 , 50 dt incl. breakfast) - morning-->
+<!--                                        adventure (08:00 , 40 dt) - morning beginners (10:30 , 30 dt) - afternoon-->
+<!--                                        (15:00, 30dt) - Sunset all-level (18:00 , 30dt). private : 80dt.&amp;nbsp;-->
+<!--                                    </p>-->
+<!--                                    <p>- Unsupervised rental is not possible.&amp;nbsp;</p>-->
+<!--                                    <p class="o_default_snippet_text">- Rescue boat is under your service&amp;nbsp;-->
+<!--                                        <br/>-->
+<!--                                    </p>-->
+<!--                                    <p>-->
+<!--                                        <br/>-->
+<!--                                    </p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </section>-->
+<!--                    <section class="s_text_image pt32 pb32 o_colored_level" data-snippet="s_text_image"-->
+<!--                             data-name="Text - Image" style="background-image: none;">-->
+<!--                        <div class="container">-->
+<!--                            <div class="row align-items-center">-->
+<!--                                <div class="col-lg-6 pt16 pb16 o_colored_level">-->
+<!--                                    <h2 class="o_default_snippet_text">Are you planning your trip?</h2>-->
+<!--                                    <ol>-->
+<!--                                        <li>-->
+<!--                                            <strong>How can I book my adventure?-->
+<!--                                                <br/>-->
+<!--                                            </strong>-->
+<!--                                            Simple, give us a call on&amp;nbsp;+216 99 273 375, for all details about-->
+<!--                                            pricing, timing, and availability of the photographer in advance.-->
+<!--                                            Contrariwise we really appreciate your notification in case of canceling the-->
+<!--                                            session.&amp;nbsp;&amp;nbsp;-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            <strong>How can I get my photos ?-->
+<!--                                                <br/>-->
+<!--                                            </strong>-->
+<!--                                            You will get them immediately after your session by cable&amp;nbsp;&amp;nbsp;or-->
+<!--                                            by a secure link in google drive. Please note that all media content remains-->
+<!--                                            two weeks before extermination-->
+<!--                                            <strong>.</strong>-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            <strong>Can I bring my gear and join your cruise ?</strong>-->
+<!--                                            <br/>YES of course ! First for your safety, and second for the vibe we share-->
+<!--                                            as we want to grow the community.-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            <strong>When can I join your activity ?-->
+<!--                                                <br/>-->
+<!--                                            </strong>-->
+<!--                                            As known, we depend on weather conditions. General rule-of-thumb : during-->
+<!--                                            good weather we paddle, and in wind season we kitesurf in the lagoon nearby-->
+<!--                                            Mahdia (<a href="http://https//goo.gl/maps/q91NZEpApAgPeFxg9"-->
+<!--                                                       target="_blank">here</a>). Try to avoid overcrowded weekends to-->
+<!--                                            book your tour-->
+<!--                                            <strong>.</strong>-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            <strong>&amp;nbsp;Where may I park my car ?</strong>-->
+<!--                                            <br/>You can park&amp;nbsp;<a-->
+<!--                                                href="http://https//goo.gl/maps/tmrSCRw2eATkEVRU7" target="_blank">-->
+<!--                                            Here</a>&amp;nbsp;, or&amp;nbsp;<a-->
+<!--                                                href="http://https//goo.gl/maps/vrmSU8TqJ5Zk6ZeGA" target="_blank">-->
+<!--                                            here</a>&amp;nbsp;-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            <strong>Is there a possibility of accommodation ?-->
+<!--                                                <br/>-->
+<!--                                            </strong>-->
+<!--                                            In future yes, with surf-eat-sleep-repeat life-style-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            <strong>May I ask for a price reduction ?-->
+<!--                                                <br/>-->
+<!--                                            </strong>-->
+<!--                                            We generally avoid this type of questions, as the dispenses on the gear are-->
+<!--                                            quite considerable&amp;nbsp;in the international market. Nevertheless, we-->
+<!--                                            will not let you down, but we will make sure to serve you with the best-->
+<!--                                            timing, the coolest tour and the entire safety.&amp;nbsp;-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            <strong>Can I ask for a refund?-->
+<!--                                                <br/>-->
+<!--                                            </strong>-->
+<!--                                            Sure! Your request will be forwarded to our after-sale-service. We will-->
+<!--                                            investigate the root cause and offer you the adequate indemnity.&amp;nbsp;&amp;nbsp;-->
+<!--                                        </li>-->
+<!--                                    </ol>-->
+<!--                                </div>-->
+<!--                                <div class="col-lg-6 pt16 pb16 o_colored_level">-->
+<!--                                    <img src="/web/image/website.s_text_image_default_image"-->
+<!--                                         class="img img-fluid mx-auto" alt="" loading="lazy" data-original-id="808"-->
+<!--                                         data-original-src="/website/static/src/img/snippets_demo/s_text_image.jpg"-->
+<!--                                         data-mimetype="image/jpeg"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </section>-->
+<!--                    <section class="s_text_block pt40 pb40 o_colored_level" data-snippet="s_text_block" data-name="Text"-->
+<!--                             style="background-image: none;">-->
+<!--                        <div class="container s_allow_columns">-->
+<!--                            <h1 class="o_default_snippet_text">For our international guests</h1>-->
+<!--                            <ol>-->
+<!--                                <li>-->
+<!--                                    <strong>Any international airport nearby ?</strong>-->
+<!--                                    <br/>-&amp;nbsp;Monastir (45min) : direct flights from Berlin, Frankfurt, Hamburg,-->
+<!--                                    Hannover, Munich, Düsseldorf, Stuttgart, Paris, Nice, Marseille, Lyon, ...- Enfidha-->
+<!--                                    Hammamet Airport : 2h- Tunis Carthage : 3h-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <strong>What kind of accommodation there is ?</strong>-->
+<!--                                    <br/>You have a choice of 16 hotels with direct beach access. But if you are on a-->
+<!--                                    budget, you can choose Airbnb as an alternative. Please, feel free to ask us for a-->
+<!--                                    recommendation.&amp;nbsp;-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <strong>How cheap is it in Tunisia or specifically Mahdia ?</strong>-->
+<!--                                    <br/>Generally speaking it is quite affordable for all.&amp;nbsp; Whether you go for-->
+<!--                                    a street food or a local bar or a Taxi or even a luxury facility, you will get-->
+<!--                                    surprised how cheap it is.&amp;nbsp;-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <strong>What are the best wind seasons&amp;nbsp; for kitesurfing?</strong>-->
+<!--                                    <br/>- May : South east, 15 to 25 knots regular, 5 days out of 7, air temperature-->
+<!--                                    25°C- December : North, 15 to 35 knots regular, 5 days out of 7, air temperature-->
+<!--                                    18°C.- Other : occasionally 2 to 3 days a week.&amp;nbsp;- Foil wind : nearly 7 out-->
+<!--                                    of 7 over the year.&amp;nbsp;-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <strong>how far is the kite spot from the school ?</strong>-->
+<!--                                    <br/>20 minutes of drive, traffic free area. You can rent a car, or may ask for a-->
+<!--                                    pick-up service by the school.&amp;nbsp;-->
+<!--                                </li>-->
+<!--                            </ol>-->
+<!--                            <p class="o_default_snippet_text">-->
+<!--                                <br/>-->
+<!--                            </p>-->
+<!--                        </div>-->
+<!--                    </section>-->
+<!--                </div>-->
+<!--            </t>-->
+<!--        </t>-->
+</odoo>

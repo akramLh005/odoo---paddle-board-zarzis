@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paddle_session_form" model="ir.ui.view">
+        <field name="name">paddle.session.form</field>
+        <field name="model">paddle.session</field>
+        <field name="arch" type="xml">
+            <form string="Paddle session">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="session_state"/>
+                        </group>
+                        <group>
+                            <field name="from_time"/>
+                            <field name="to_time"/>
+                        </group>
+                    </group>
+                </sheet>
+                <!-- Chatter -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <!-- explicit list view definition -->
+    <record id="view_paddle_session_tree" model="ir.ui.view">
+        <field name="name">paddle.session.tree</field>
+        <field name="model">paddle.session</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="session_state"/>
+                <field name="from_time"/>
+                <field name="to_time"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="action_paddle_session">
+        <field name="name">Paddle session</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">paddle.session</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>
